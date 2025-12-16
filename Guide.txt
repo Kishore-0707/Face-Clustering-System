@@ -1,0 +1,225 @@
+FACE CLUSTERING PROJECT – FULL STEP-BY-STEP GUIDE
+
+✔ Examples Explained Clearly
+✅ 1. Basic Run (Use CPU, Use Cache):
+python face_cluster_singlefile.py -i images -o output
+
+
+Meaning:
+Detect → Encode → Cluster → Save folders + previews.
+
+✅ 2. Run With No Cache (force re-processing everything)
+python face_cluster_singlefile.py -i images -o output --no_cache
+
+
+Meaning:
+Ignore old embeddings and generate everything fresh.
+
+✅ 3. Run Using GPU (if available)
+python face_cluster_singlefile.py -i images -o output --device cuda
+
+
+Meaning:
+Use GPU for faster processing (only if you installed CUDA version of PyTorch).
+
+✅ 4. Tune Clustering Sensitivity
+python face_cluster_singlefile.py -i images -o output --eps 1.0 --min_samples 3
+
+
+Meaning:
+
+eps = 1.0 → cluster more faces together
+
+min_samples = 3 → at least 3 similar faces needed to make a group
+
+
+
+SECTION 1 — INSTALLING ANACONDA
+
+Download Anaconda:
+https://www.anaconda.com/download
+
+Install it with default settings (Next → Next → Finish).
+
+After installation, search in Windows Start Menu for:
+“Anaconda Prompt”
+(NOT PowerShell, NOT CMD, NOT VS Code terminal)
+
+Open Anaconda Prompt.
+You should see this:
+(base) C:\Users\YourName>
+
+SECTION 2 — CREATING A VIRTUAL ENVIRONMENT
+
+Open Anaconda Prompt.
+
+Create a new environment named faceenv:
+
+conda create -n faceenv python=3.10
+
+
+Activate the environment:
+
+conda activate faceenv
+
+
+You should now see:
+
+(faceenv)
+
+
+This means the environment is active.
+
+SECTION 3 — MAKING CONDA WORK IN POWERSHELL / VS CODE
+
+Still inside Anaconda Prompt, run:
+
+conda init powershell
+
+
+Close ALL terminals (PowerShell, VS Code, CMD).
+
+Re-open VS Code → Open a new Terminal.
+
+You should now see:
+
+(base)
+
+
+Activate your environment:
+
+conda activate faceenv
+
+
+Now VS Code terminal supports conda commands.
+
+SECTION 4 — INSTALL REQUIRED PYTHON PACKAGES
+
+Make sure you are inside your conda environment:
+
+conda activate faceenv
+
+
+Install the face-clustering dependencies:
+
+pip install facenet-pytorch torchvision
+pip install numpy pillow scikit-learn opencv-python tqdm
+
+SECTION 5 — PROJECT STRUCTURE
+
+Your folder should look like this:
+
+face_clustering_project/
+    face_cluster_singlefile.py
+    images/                  ← place all your photos here
+    output/                  ← script will auto create
+
+
+Place all your photos inside the images folder.
+
+SECTION 6 — RUNNING THE SCRIPT (VERY IMPORTANT)
+
+Open VS Code terminal (with faceenv activated) and run:
+
+BASIC RUN
+python face_cluster_singlefile.py -i images -o output
+
+
+Meaning:
+
+Input = images folder
+
+Output = output folder
+
+The script will:
+
+Detect faces
+
+Encode embeddings
+
+Cluster people
+
+Organize photos
+
+Create preview grids
+
+SECTION 7 — OPTIONAL COMMANDS EXPLAINED
+(1) Disable Cache (force fresh processing)
+python face_cluster_singlefile.py -i images -o output --no_cache
+
+
+Meaning:
+→ Forget old saved embeddings
+→ Detect & encode everything again
+
+(2) Use GPU if available
+python face_cluster_singlefile.py -i images -o output --device cuda
+
+
+Meaning:
+→ Use your NVIDIA GPU to speed up processing
+
+(3) Adjust Clustering Sensitivity
+python face_cluster_singlefile.py -i images -o output --eps 1.0 --min_samples 3
+
+
+Meaning:
+
+eps = how easily faces get grouped
+(higher = more grouping)
+
+min_samples = minimum faces needed to form a cluster
+
+SECTION 8 — OUTPUT EXPLANATION
+
+Inside output/ you will find:
+
+clusters/
+
+Person_0/
+Person_1/
+Person_2/
+
+
+→ Each folder contains all photos where that person appears.
+
+Group photos will appear in multiple folders if multiple people are present.
+
+face_previews/
+
+cluster_0_preview.jpg
+cluster_1_preview.jpg
+
+
+→ A small collage showing the faces in each cluster.
+
+cache/
+→ Stores embeddings for faster reruns.
+
+SECTION 9 — HOW THE GROUPING WORKS
+
+The script detects all faces in every image.
+
+Creates 512-dim embeddings of each face.
+
+Clusters faces that look similar.
+
+Moves images into folders based on those clusters.
+
+If one photo contains 3 people → it is copied into 3 folders.
+
+Noise faces (bad detection or unique faces) are ignored.
+
+SECTION 10 — COMMON ISSUES
+
+A) “conda not recognized”
+→ You didn’t run conda init powershell inside Anaconda Prompt.
+
+B) VS Code terminal does not show (base)
+→ Restart VS Code after running conda init.
+
+C) CUDA not working
+→ You need NVIDIA GPU + proper CUDA version installed.
+
+D) Script finds 0 faces
+→ Images may be too small or blurred.

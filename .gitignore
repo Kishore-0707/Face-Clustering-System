@@ -1,0 +1,39 @@
+# =========================
+# Python
+# =========================
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.env
+
+# Conda / venv
+faceenv/
+venv/
+
+# Pickle / ML cache
+*.pkl
+cache/
+output/
+
+# Uploaded images
+images/
+
+# =========================
+# React / Node
+# =========================
+node_modules/
+build/
+npm-debug.log
+yarn.lock
+
+# =========================
+# OS files
+# =========================
+.DS_Store
+Thumbs.db
+
+# =========================
+# Temporary
+# =========================
+temp_search.jpg
